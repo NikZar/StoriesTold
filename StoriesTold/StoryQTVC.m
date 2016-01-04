@@ -55,7 +55,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 60;
+    return 320;
 }
 
 - (void)setupNavBar

@@ -55,7 +55,7 @@
         self.playStopButton.layer.cornerRadius =  self.playStopButton.frame.size.width/2;
         self.playStopButton.hidden = !character.audioDescription;
         
-        self.nameLabel.text = character.name;
+        self.nameLabel.text = [character.name capitalizedString];
         
         self.characterImageView.image = [UIImage imageNamed:@"Male"];
         self.characterImageView.file = character.image; // remote image

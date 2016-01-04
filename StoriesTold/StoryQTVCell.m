@@ -22,6 +22,8 @@
 
 #import "PFUser+StoriesTold.h"
 
+#import <pop/POP.h>
+
 @interface StoryQTVCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *storyTitleLabel;
@@ -88,11 +90,11 @@
         group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
         // Add both effects to your view
         [self.storyImageView addMotionEffect:group];
-        self.storyTitleLabel.text = story.title;
+        self.storyTitleLabel.text = [story.title capitalizedString];
 
         self.storyImageView.image = [UIImage imageNamed:@""]; // placeholder image
         [story.dimension fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            self.storyImageLabel.text = story.dimension.name;
+            self.storyImageLabel.text = [story.dimension.name capitalizedString];
             self.storyImageView.file = story.dimension.image; // remote image
             
             [self.storyImageView loadInBackground];
@@ -179,10 +181,21 @@
     [[PFUser currentUser] likesStory:self.story inBackgroundWithBlock:^(BOOL lovesStory, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (lovesStory) {
+                POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+                scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.05, 1.05)];
+                scaleAnimation.springBounciness = 30.f;
+                [self.loveButton.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+                
                 self.loveButton.tintColor = [UIColor blackColor];
                 self.loveCountLabel.textColor = [UIColor whiteColor];
+                
             }
             else {
+                POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+                scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.0, 1.0)];
+                scaleAnimation.springBounciness = 10.f;
+                [self.loveButton.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnim"];
+                
                 self.loveButton.tintColor = kDarkBeigeColor;
                 self.loveCountLabel.textColor = [UIColor blackColor];
             };

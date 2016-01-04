@@ -27,7 +27,8 @@
         self.backgroundColor = kBeigeColor;
         [self.infoButton setImage:[self.infoButton.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         self.infoButton.tintColor = [UIColor whiteColor];
-        self.dimensionNameLabel.text = dimension.name;
+        
+        self.dimensionNameLabel.text = [dimension.name capitalizedString];
         
         // Set vertical effect
         UIInterpolatingMotionEffect *verticalMotionEffect =

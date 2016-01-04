@@ -28,8 +28,25 @@
 @property (nonatomic, strong) AEAudioController *audioController;
 @property (nonatomic, strong) AERecorder *recorder;
 
+@property (weak, nonatomic) IBOutlet UIView *genericControlsView;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *characterButton;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
+
+@property (weak, nonatomic) IBOutlet UIView *recordControlsView;
+@property (weak, nonatomic) IBOutlet UIButton *recordRecordButton;
+@property (weak, nonatomic) IBOutlet UIButton *recordCharacterButton;
+@property (weak, nonatomic) IBOutlet UIButton *recordUploadButton;
+@property (weak, nonatomic) IBOutlet UIButton *recordSoundButton;
+@property (weak, nonatomic) IBOutlet UIButton *recordPlayStopButton;
+
+@property (weak, nonatomic) IBOutlet UIView *characterControlView;
+@property (weak, nonatomic) IBOutlet UIButton *characterCharacterButton;
+@property (weak, nonatomic) IBOutlet UICollectionView *characterCollectionView;
+
+@property (weak, nonatomic) IBOutlet UIView *soundControlsView;
+@property (weak, nonatomic) IBOutlet UICollectionView *soundCollectionView;
+@property (weak, nonatomic) IBOutlet UIButton *soundSoundButton;
 
 @end
 
@@ -39,12 +56,33 @@
 {
     [super viewDidLoad];
     
-    self.recordButton.layer.cornerRadius = self.recordButton.frame.size.width/2;
-    [self.recordButton.imageView setImageRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self setupRoundButton:self.recordButton];
+    [self setupRoundButton:self.characterButton];
+    [self setupRoundButton:self.moreButton];
     
-    self.characterButton.layer.cornerRadius = self.characterButton.frame.size.width/2;
-    self.characterButton.layer.borderColor = kDarkBeigeColor.CGColor;
-    self.characterButton.layer.borderWidth = 2.0;
+    [self setupRoundButton:self.recordCharacterButton];
+    [self setupRoundButton:self.recordPlayStopButton];
+    [self setupRoundButton:self.recordSoundButton];
+    [self setupRoundButton:self.recordUploadButton];
+    [self setupRoundButton:self.recordRecordButton];
+
+    [self setupRoundButton:self.characterCharacterButton];
+    self.characterCollectionView.layer.cornerRadius = 2.0;
+    self.characterCollectionView.layer.borderColor = kDarkBeigeColor.CGColor;
+    self.characterCollectionView.layer.borderWidth = 1.0;
+    
+    [self setupRoundButton:self.soundSoundButton];
+    self.soundCollectionView.layer.cornerRadius = 2.0;
+    self.soundCollectionView.layer.borderColor = kDarkBeigeColor.CGColor;
+    self.soundCollectionView.layer.borderWidth = 1.0;
+}
+
+- (void)setupRoundButton:(UIButton *)button
+{
+    button.layer.cornerRadius = button.frame.size.width/2;
+    button.layer.borderColor = kDarkBeigeColor.CGColor;
+    button.layer.borderWidth = 2.0;
+    [button.imageView setImageRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 - (AEAudioController *)audioController
